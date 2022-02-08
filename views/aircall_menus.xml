@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="aircall_menu_root" name="Aircall"/>
+    <menuitem id="aircall_menu" name="Users" parent="aircall_menu_root"/>
+    <menuitem id="aircall_user_action_action" action="aircall_user_action" parent="aircall_menu"/>
+</odoo>

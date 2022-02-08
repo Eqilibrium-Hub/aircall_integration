@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu action *************************************************************************-->
+    <record id="aircall_user_action" model="ir.actions.act_window">
+        <field name="name">User configuration</field>
+        <field name="res_model">aircall.user</field>
+        <field name="view_mode">tree,form</field>
+        <!-- <field name="domain">[]</field> -->
+        <!-- <field name="context">{}</field> -->
+        <!-- <field name="help" type="html">
+            
+        </field> -->
+    </record>
+    <!-- Tree *************************************************************************-->
+    <record id="aircall_user_view_tree" model="ir.ui.view">
+        <field name="name">aircall.user.view.tree</field>
+        <field name="model">aircall.user</field>
+        <field name="arch" type="xml">
+            <tree string="Aircall Users">
+                <field name="aircall_user_id" />
+                <field name="aircall_phone_number"/>
+                <field name="internal_user_id"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Form *************************************************************************-->
+    <record id="aircall_user_view_form" model="ir.ui.view">
+        <field name="name">aircall.user.view.form</field>
+        <field name="model">aircall.user</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="aircall_user_id"/>
+                        <field name="aircall_phone_number"/>
+                        <field name="internal_user_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
