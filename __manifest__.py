@@ -17,7 +17,8 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'queue_job'],
+    # install python requests library for queue module
 
     # always loaded
     'data': [

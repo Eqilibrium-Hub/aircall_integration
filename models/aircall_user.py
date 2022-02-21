@@ -25,7 +25,6 @@ class aircall_user(models.Model):
 
     @api.constrains('internal_user_id')
     def user_is_internal_user(self):
-        print("****************")
         for record in self:
             if (not self.internal_user_id.has_group('base.group_user')):
                 raise ValidationError("User has to be internal")
