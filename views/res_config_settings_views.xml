@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.aircall</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Aircall" string="Aircall" data-key="aircall_integration">
+                    <h2>Basic Authentification</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="o_setting_left_pane">
+                            <label for="api_id" string="API id"/>
+                            <field name="api_id"/>
+                            <label for="api_token" string="API token"/>
+                            <field name="api_token" password="True"/>
+                        </div>
+                    </div>
+                    <h2>Integration</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="o_setting_left_pane">
+                            <label for="integration_token" string="Integration Token"/>
+                            <field name="integration_token" password="True"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="res_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Aircall Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'aircall_integration'}</field>
+    </record>
+    <menuitem
+        id="aircall_configuration_menu"
+        name="Configuration"
+        parent="aircall_menu_root"
+        sequence="100"/>
+    <menuitem
+        id="aircall_settings_menu"
+        name="Settings"
+        parent="aircall_configuration_menu"
+        action="res_config_settings_action"
+        sequence="10"/>
+</odoo>

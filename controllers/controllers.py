@@ -2,11 +2,13 @@
 from urllib import request
 from odoo import http
 import json
-
 import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class AircallIntegration(http.Controller):
+
     # Test endpoint
     @http.route('/aircall/hello_world', auth='public')
     def index(self, **kw):
@@ -18,10 +20,23 @@ class AircallIntegration(http.Controller):
         # instead of json-rpc formatted json
         json_payload = dict(http.request.jsonrequest)
 
-        # TODO :
-        # [SECURITY] check that emitter is aircall with http.request.httprequest.environ
-        # Parse each request and create appropriate records
-        return ""
+        if "token" not in json_payload:
+            _logger.warning("Received malformed json payload at webhook endpoint from {}".format(
+                http.request.httprequest.environ['REMOTE_ADDR']))
+            return
+
+        authentificated = http.request.env['aircall.service'].validate_webhook_token(
+            json_payload["token"])
+        if not(authentificated):
+            _logger.warning("Could not authentificate webhook call from {}".format(
+                http.request.httprequest.environ['REMOTE_ADDR']))
+            return
+
+        print(json_payload)
+
+        # Request is now identificated, we can parse it safely
+
+        return
 
     #   print(http.request.httprequest.environ)
     # {'wsgi.version': (1, 0), 'wsgi.url_scheme': 'http', 'wsgi.input': <_io.BufferedReader name=9>, 'wsgi.errors': <_io.TextIOWrapper name='<stderr>' mode='w' encoding='utf-8'>, 'wsgi.multithread': True, 'wsgi.multiprocess': False, 'wsgi.run_once': False, 'werkzeug.server.shutdown': <function WSGIRequestHandler.make_environ.<locals>.shutdown_server at 0x7f52f6f339d0>, 'SERVER_SOFTWARE': 'Werkzeug/0.16.1', 'REQUEST_METHOD': 'POST', 'SCRIPT_NAME': '', 'PATH_INFO': '/aircall/webhook', 'QUERY_STRING': '', 'REQUEST_URI': '/aircall/webhook', 'RAW_URI': '/aircall/webhook', 'REMOTE_ADDR': '192.168.1.237', 'REMOTE_PORT': 57785, 'SERVER_NAME': '0.0.0.0', 'SERVER_PORT': '8069', 'SERVER_PROTOCOL': 'HTTP/1.1', 'CONTENT_TYPE': 'application/json', 'HTTP_USER_AGENT': 'PostmanRuntime/7.29.0', 'HTTP_ACCEPT': '*/*', 'HTTP_POSTMAN_TOKEN': 'e32f8f76-76b8-4adc-9ce4-5dbbd5b90fbd', 'HTTP_HOST': '192.168.1.129:8069', 'HTTP_ACCEPT_ENCODING': 'gzip, deflate, br', 'HTTP_CONNECTION': 'keep-alive', 'CONTENT_LENGTH': '76', 'werkzeug.request': <Request 'http://192.168.1.129:8069/aircall/webhook' [POST]>}

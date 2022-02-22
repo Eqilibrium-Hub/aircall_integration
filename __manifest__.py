@@ -25,9 +25,9 @@
         'security/ir.model.access.csv',
         'views/res_partner_views.xml',
         'views/aircall_user_views.xml',
-        'views/aircall_menus.xml'
+        'views/aircall_menus.xml',
+        'views/res_config_settings_views.xml'
 
     ],
-
     'application': True
 }

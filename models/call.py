@@ -21,12 +21,12 @@ class aircall_call(models.Model):
     external_entity = fields.Many2one("res.users", readonly=True)
 
     direction = fields.Selection(
-        "Call direction", [("inbound", "Inbound"), ("outbound", "Outbound")], readonly=True)
+        [("inbound", "Inbound"), ("outbound", "Outbound")], string="res_config_settings_action", readonly=True)
 
     recording = fields.Binary("Audio Recording", readonly=True)
 
     missed_call_reason = fields.Selection(
-        "Missed call reason", [("out_of_opening_hours", "Out of opening hours"), ("short_abandoned", "Short abandoned"),
-                               ("abandonned_in_ivr", "Abandonned in ivr"), (
-                                   "abandoned_in_classic", "Abandoned in classic"),
-                               ("no_available_agent", "No available agent"), ("agents_did_not_answer", "Agents did not answer")], readonly=True)
+        [("out_of_opening_hours", "Out of opening hours"), ("short_abandoned", "Short abandoned"),
+         ("abandonned_in_ivr", "Abandonned in ivr"), (
+            "abandoned_in_classic", "Abandoned in classic"),
+            ("no_available_agent", "No available agent"), ("agents_did_not_answer", "Agents did not answer")], string="res_config_settings_action", readonly=True)
