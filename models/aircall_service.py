@@ -20,3 +20,26 @@ class AircallService(models.TransientModel):
                 "Aircall integration token has not been set. Webhooks cannot function without it.")
 
         return true_token == token
+
+    # *********** Parsing methods
+
+    @api.model
+    def register(self, payload):
+        register_map = {
+            'call.ended': self.register_call_ended
+        }
+        try:
+            method = register_map[payload["event"]]
+        except KeyError:
+            _logger.warning(
+                "An unimplemented webhook of type [{}] has been received. Uncheck it in aircall dashboard.")
+            return
+        method(payload)
+
+    @api.model
+    def register_call_ended(self, payload):
+        self.parse_object_call(payload)
+
+    @api.model
+    def parse_object_call(self, payload):
+        pass
