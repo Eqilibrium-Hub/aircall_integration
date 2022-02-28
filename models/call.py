@@ -1,3 +1,4 @@
+from email.policy import default
 from odoo import api, fields, models
 
 
@@ -9,19 +10,16 @@ class aircall_call(models.Model):
     # https://developer.aircall.io/api-references/#call-overview
 
     aircall_user_id = fields.Many2one(
-        "aircall.user", "Aircall User", readonly=True)
+        "res.users", "Aircall User", readonly=True)
+    external_entity = fields.Many2one("res.partner", readonly=True)
 
-    start_date = fields.Datetime("Start", readonly=True)
-    end_date = fields.Datetime("End", readonly=True)
-    duration = fields.Integer("Duration", readonly=True)
+    started_at = fields.Datetime("Start", readonly=True)
+    duration = fields.Char("Duration", readonly=True, default='0')
 
-    inbound_number = fields.Text("Inbound number", readonly=True)
-    outbound_number = fields.Text("Outbound number", readonly=True)
-
-    external_entity = fields.Many2one("res.users", readonly=True)
+    external_number = fields.Char("Outbound number", readonly=True)
 
     direction = fields.Selection(
-        [("inbound", "Inbound"), ("outbound", "Outbound")], string="res_config_settings_action", readonly=True)
+        [("inbound", "Inbound"), ("outbound", "Outbound")], string="Type", readonly=True)
 
     recording = fields.Binary("Audio Recording", readonly=True)
 
@@ -29,4 +27,4 @@ class aircall_call(models.Model):
         [("out_of_opening_hours", "Out of opening hours"), ("short_abandoned", "Short abandoned"),
          ("abandonned_in_ivr", "Abandonned in ivr"), (
             "abandoned_in_classic", "Abandoned in classic"),
-            ("no_available_agent", "No available agent"), ("agents_did_not_answer", "Agents did not answer")], string="res_config_settings_action", readonly=True)
+            ("no_available_agent", "No available agent"), ("agents_did_not_answer", "Agents did not answer")], string="Missed call reason", readonly=True)
