@@ -9,12 +9,14 @@ class aircall_call(models.Model):
     # replicates some of the fields available through Aircall API
     # https://developer.aircall.io/api-references/#call-overview
 
+    name = fields.Char(compute="_compute_name", store=True)
     aircall_user_id = fields.Many2one(
         "res.users", "Aircall User", readonly=True)
     external_entity = fields.Many2one("res.partner", readonly=True)
 
     started_at = fields.Datetime("Start", readonly=True)
-    duration = fields.Char("Duration", readonly=True, default='0')
+    duration = fields.Char("Duration", readonly=True,
+                           default='0', help="Duration of the call in seconds.")
 
     external_number = fields.Char("Outbound number", readonly=True)
 
@@ -28,3 +30,8 @@ class aircall_call(models.Model):
          ("abandonned_in_ivr", "Abandonned in ivr"), (
             "abandoned_in_classic", "Abandoned in classic"),
             ("no_available_agent", "No available agent"), ("agents_did_not_answer", "Agents did not answer")], string="Missed call reason", readonly=True)
+
+    def _compute_name(self):
+        for call in self:
+            call.name = "{}@{}".format(call.aircall_user_id.name,
+                                       call.started_at)

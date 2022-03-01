@@ -17,14 +17,16 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'web'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/aircall_menus.xml',
-        'views/res_config_settings_views.xml'
+        'views/res_config_settings_views.xml',
+        'views/aircall_call_view.xml'
 
     ],
-    'application': True
+    'application': True,
+    'license': 'LGPL-3'
 }

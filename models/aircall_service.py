@@ -43,9 +43,7 @@ class AircallService(models.TransientModel):
         assert payload["resource"] == "call"
         data = payload["data"]
 
-        direction = data["direction"]
         duration = 0
-
         started_at = datetime.utcfromtimestamp(int(data["started_at"]))
         if data["answered_at"] != 'None':
             print(data["answered_at"])
@@ -63,9 +61,13 @@ class AircallService(models.TransientModel):
 
         external_number = data["raw_digits"]
 
+        logging.warning(external_number)
+
         # locate external entity, if it exists, with its number
-        external_entity = self.env["res.partner"].search(
-            [('phone', '=', external_number)], limit=1).id
+        external_entity = self.env["res.partner"].sudo().search(
+            [('phone', 'ilike', external_number)], limit=1).id
+
+        logging.warning(external_entity)
 
         self.env["aircall.call"].sudo().create(
             {
@@ -73,6 +75,7 @@ class AircallService(models.TransientModel):
                 "external_entity": external_entity,
                 "external_number": external_number,
                 "started_at": started_at,
-                "duration": duration
+                "duration": duration,
+                "direction": data["direction"]
             }
         )

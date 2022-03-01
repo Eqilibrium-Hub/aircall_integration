@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="aircall_call_action" model="ir.actions.act_window">
+        <field name="name">Call logs</field>
+        <field name="res_model">aircall.call</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <!-- <field name="help" type="html">
+        
+    </field> -->
+    </record>
+    <record id="aircall_call_view_tree" model="ir.ui.view">
+        <field name="name">aircall.call.view.tree</field>
+        <field name="model">aircall.call</field>
+        <field name="arch" type="xml">
+            <tree string="Call" create="false">
+                <field name="started_at" string="Date" widget="datetime"/>
+                <field name="duration" string="Duration"/>
+                <field name="aircall_user_id" string="Agent" widget="many2onebutton"/>
+                <field name="external_number" string="Client Number"/>
+                <field name="external_entity" string="Client"/>
+            </tree>
+        </field>
+    </record>
+    <record id="aircall_call_view_form" model="ir.ui.view">
+        <field name="name">aircall.call.view.form</field>
+        <field name="model">aircall.call</field>
+        <field name="arch" type="xml">
+            <form string="Call log" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <field name="started_at" string="Date" widget="datetime"/>
+                        <field name="duration" string="Duration"/>
+                        <field name="aircall_user_id" string="Agent" widget="many2onebutton"/>
+                        <field name="external_number" string="Client Number"/>
+                        <field name="external_entity" string="Client" widget="many2onebutton"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem
+    id="aircall_call_menu"
+    name="Call"
+    parent="aircall_menu_root"
+    sequence="5"/>
+    <menuitem
+        id="model_name_menu"
+        name="Logs"
+        parent="aircall_call_menu"
+        action="aircall_call_action"
+        sequence="10"/>
+</odoo>
