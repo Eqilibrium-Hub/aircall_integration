@@ -1,7 +1,8 @@
 from odoo import api, fields, models
 import logging
-import pytz
+import requests
 from datetime import datetime
+import base64
 
 # Inspired by https://github.com/odoo/odoo/blob/15.0/addons/google_account/models/google_service.py
 
@@ -28,7 +29,7 @@ class AircallService(models.TransientModel):
     @api.model
     def register(self, payload):
         register_map = {
-            'call.ended': self.register_call
+            'call.ended': self._register_call
         }
         try:
             method = register_map[payload["event"]]
@@ -39,35 +40,30 @@ class AircallService(models.TransientModel):
         method(payload)
 
     @api.model
-    def register_call(self, payload):
+    def _register_call(self, payload):
         assert payload["resource"] == "call"
         data = payload["data"]
-
         duration = 0
+        direction = data["direction"]
         started_at = datetime.utcfromtimestamp(int(data["started_at"]))
-        if data["answered_at"] != 'None':
-            print(data["answered_at"])
-            answered_at = datetime.utcfromtimestamp(int(data["answered_at"]))
-            ended_at = datetime.utcfromtimestamp(int(data["ended_at"]))
-            duration = str(ended_at - answered_at)  # (h:m:s) format
-        # locate aircall user with its email address
+        external_number = data["raw_digits"]
         aircall_user_id = self.env["res.users"].sudo().search(
-            [('email', 'ilike', data["user"]["email"])], limit=1).id
+            [('phone', 'ilike', data["number"]["digits"])], limit=1).id
 
         if aircall_user_id is False:
             _logger.warning("Call log matching no one in database. {}/{}/{}".format(
                 data["user"]["name"], data["user"]["email"], data["raw_digits"]))
             return
 
-        external_number = data["raw_digits"]
-
-        logging.warning(external_number)
-
-        # locate external entity, if it exists, with its number
         external_entity = self.env["res.partner"].sudo().search(
             [('phone', 'ilike', external_number)], limit=1).id
 
-        logging.warning(external_entity)
+        if data["answered_at"] != None and data["answered_at"] != 'None':
+            answered_at = datetime.utcfromtimestamp(int(data["answered_at"]))
+            ended_at = datetime.utcfromtimestamp(int(data["ended_at"]))
+            duration = str(ended_at - answered_at)  # (h:m:s) format
+
+        self._create_audio_attachment(data["voicemail"], "VoiceMail")
 
         self.env["aircall.call"].sudo().create(
             {
@@ -76,6 +72,32 @@ class AircallService(models.TransientModel):
                 "external_number": external_number,
                 "started_at": started_at,
                 "duration": duration,
-                "direction": data["direction"]
+                "direction": direction,
+                "recording": self._dl_audio(data["recording"]) if data["recording"] != "None" else False,
+                "voicemail": self._dl_audio(data["voicemail"]) if data["voicemail"] != "None" else False
             }
         )
+
+    @api.model
+    def _create_audio_attachment(self, url, filename):
+        binary_audio = self._dl_audio(url)
+        if binary_audio is False:
+            return False
+
+        _logger.warning(binary_audio)
+        return self.env['ir.attachment'].sudo().create({
+            'name': filename,
+            'type': 'binary',
+            'datas': base64.b64encode(binary_audio),
+            'mimetype': 'audio/mpeg'
+        })
+
+    @staticmethod
+    def _dl_audio(url):
+        url = "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3"
+        re = requests.get(url)
+        if re.status_code != requests.codes.ok:
+            _logger.warning(
+                "Could not reach URL to download audio [{}]".format(url))
+            return False
+        return re.content

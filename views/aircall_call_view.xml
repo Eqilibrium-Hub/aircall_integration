@@ -6,20 +6,18 @@
         <field name="view_mode">tree,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
-        <!-- <field name="help" type="html">
-        
-    </field> -->
     </record>
     <record id="aircall_call_view_tree" model="ir.ui.view">
         <field name="name">aircall.call.view.tree</field>
         <field name="model">aircall.call</field>
         <field name="arch" type="xml">
             <tree string="Call" create="false">
-                <field name="started_at" string="Date" widget="datetime"/>
-                <field name="duration" string="Duration"/>
-                <field name="aircall_user_id" string="Agent" widget="many2onebutton"/>
+                <field name="aircall_user_id" string="Agent" widget="many2one_avatar_user"/>
+                <field name="direction" string="Type" decoration-danger="direction == 'inbound'" decoration-success="direction == 'outbound'"/>
                 <field name="external_number" string="Client Number"/>
                 <field name="external_entity" string="Client"/>
+                <field name="started_at" string="Date"/>
+                <field name="duration" string="Duration"/>
             </tree>
         </field>
     </record>
@@ -30,21 +28,23 @@
             <form string="Call log" create="false" edit="false">
                 <sheet>
                     <group>
-                        <field name="started_at" string="Date" widget="datetime"/>
+                        <field name="aircall_user_id" string="Agent"/>
+                        <field name="started_at" string="Date"/>
                         <field name="duration" string="Duration"/>
-                        <field name="aircall_user_id" string="Agent" widget="many2onebutton"/>
                         <field name="external_number" string="Client Number"/>
-                        <field name="external_entity" string="Client" widget="many2onebutton"/>
+                        <field name="external_entity" string="Client"/>
+                        <field name="recording" string="Call recording" widget="audio_omar_widget"/>
+                        <field name="voicemail" string="Voicemail" widget="audio_omar_widget"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
     <menuitem
-    id="aircall_call_menu"
-    name="Call"
-    parent="aircall_menu_root"
-    sequence="5"/>
+        id="aircall_call_menu"
+        name="Call"
+        parent="aircall_menu_root"
+        sequence="5"/>
     <menuitem
         id="model_name_menu"
         name="Logs"

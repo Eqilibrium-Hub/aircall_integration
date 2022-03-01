@@ -33,7 +33,7 @@ class AircallIntegration(http.Controller):
                 http.request.httprequest.environ['REMOTE_ADDR']))
             return
 
-        logger.debug(json_payload)
+        logger.warning(json_payload)
 
         http.request.env["aircall.service"].register(json_payload)
 

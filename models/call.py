@@ -1,3 +1,4 @@
+from asyncore import read
 from email.policy import default
 from odoo import api, fields, models
 
@@ -23,7 +24,10 @@ class aircall_call(models.Model):
     direction = fields.Selection(
         [("inbound", "Inbound"), ("outbound", "Outbound")], string="Type", readonly=True)
 
-    recording = fields.Binary("Audio Recording", readonly=True)
+    recording = fields.Many2one('ir.attachment',
+                                string="Audio Recording", readonly=True)
+    voicemail = fields.Many2one(
+        'ir.attachment', string="Voicemail Recording", readonly=True)
 
     missed_call_reason = fields.Selection(
         [("out_of_opening_hours", "Out of opening hours"), ("short_abandoned", "Short abandoned"),
@@ -31,7 +35,8 @@ class aircall_call(models.Model):
             "abandoned_in_classic", "Abandoned in classic"),
             ("no_available_agent", "No available agent"), ("agents_did_not_answer", "Agents did not answer")], string="Missed call reason", readonly=True)
 
+    @api.depends("aircall_user_id.name", "started_at")
     def _compute_name(self):
         for call in self:
-            call.name = "{}@{}".format(call.aircall_user_id.name,
-                                       call.started_at)
+            call.name = "{} on {}".format(call.aircall_user_id.name,
+                                          call.started_at.date())
