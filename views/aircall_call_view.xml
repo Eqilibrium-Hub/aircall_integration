@@ -34,7 +34,6 @@
                         <field name="external_number" string="Client Number"/>
                         <field name="external_entity" string="Client"/>
                         <field name="recording" string="Call recording" widget="audio_omar_widget"/>
-                        <field name="voicemail" string="Voicemail" widget="audio_omar_widget"/>
                     </group>
                 </sheet>
             </form>

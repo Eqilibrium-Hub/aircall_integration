@@ -18,17 +18,14 @@ class aircall_call(models.Model):
     started_at = fields.Datetime("Start", readonly=True)
     duration = fields.Char("Duration", readonly=True,
                            default='0', help="Duration of the call in seconds.")
-
     external_number = fields.Char("Outbound number", readonly=True)
-
     direction = fields.Selection(
         [("inbound", "Inbound"), ("outbound", "Outbound")], string="Type", readonly=True)
-
-    recording = fields.Many2one('ir.attachment',
-                                string="Audio Recording", readonly=True)
-    voicemail = fields.Many2one(
-        'ir.attachment', string="Voicemail Recording", readonly=True)
-
+    # we have to create an attachment since you can't set a mime type on a raw binary field
+    recording_attachment_id = fields.Many2one('ir.attachment',
+                                              string="Audio Recording", ondelete='set null', readonly=True)
+    recording = fields.Binary(
+        related="recording_attachment_id.datas", attachment=False, readonly=True)
     missed_call_reason = fields.Selection(
         [("out_of_opening_hours", "Out of opening hours"), ("short_abandoned", "Short abandoned"),
          ("abandonned_in_ivr", "Abandonned in ivr"), (

@@ -63,8 +63,6 @@ class AircallService(models.TransientModel):
             ended_at = datetime.utcfromtimestamp(int(data["ended_at"]))
             duration = str(ended_at - answered_at)  # (h:m:s) format
 
-        self._create_audio_attachment(data["voicemail"], "VoiceMail")
-
         self.env["aircall.call"].sudo().create(
             {
                 "aircall_user_id": aircall_user_id,
@@ -73,8 +71,7 @@ class AircallService(models.TransientModel):
                 "started_at": started_at,
                 "duration": duration,
                 "direction": direction,
-                "recording": self._dl_audio(data["recording"]) if data["recording"] != "None" else False,
-                "voicemail": self._dl_audio(data["voicemail"]) if data["voicemail"] != "None" else False
+                "recording_attachment_id": self._create_audio_attachment(data["recording"], "recording_" + str(started_at.date())) if data["recording"] != "None" else False
             }
         )
 
@@ -84,13 +81,12 @@ class AircallService(models.TransientModel):
         if binary_audio is False:
             return False
 
-        _logger.warning(binary_audio)
         return self.env['ir.attachment'].sudo().create({
             'name': filename,
             'type': 'binary',
             'datas': base64.b64encode(binary_audio),
             'mimetype': 'audio/mpeg'
-        })
+        }).id
 
     @staticmethod
     def _dl_audio(url):
