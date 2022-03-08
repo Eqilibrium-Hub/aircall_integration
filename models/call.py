@@ -25,7 +25,7 @@ class aircall_call(models.Model):
         [("inbound", "Inbound"), ("outbound", "Outbound")], string="Type", readonly=True)
     # we have to create an attachment since you can't set a mime type on a raw binary field
     recording_attachment_id = fields.Many2one('ir.attachment',
-                                              string="Audio Recording", ondelete='restrict', readonly=True)
+                                              string="Audio Recording", ondelete='set null', readonly=True)
     recording = fields.Binary(
         related="recording_attachment_id.datas", attachment=False, readonly=True)
     missed_call_reason = fields.Selection(
@@ -52,3 +52,8 @@ class aircall_call(models.Model):
         ) - timedelta(hours=int(delete_after))).strftime("%Y/%m/%d, %H:%M:%S")
         self.env['aircall.call'].sudo().search(
             [('started_at', '<', expiry_date)]).unlink()
+
+    def unlink(self):
+        for call in self:
+            call.recording_attachment_id.unlink()
+        return super(aircall_call, self).unlink()

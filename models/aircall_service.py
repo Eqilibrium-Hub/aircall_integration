@@ -58,10 +58,12 @@ class AircallService(models.TransientModel):
         external_entity = self.env["res.partner"].sudo().search(
             [('phone', 'ilike', external_number)], limit=1).id
 
-        if data["answered_at"] != None and data["answered_at"] != 'None':
-            answered_at = datetime.utcfromtimestamp(int(data["answered_at"]))
-            ended_at = datetime.utcfromtimestamp(int(data["ended_at"]))
-            duration = str(ended_at - answered_at)  # (h:m:s) format
+        # if data["answered_at"] != None and data["answered_at"] != None:
+        #     answered_at = datetime.utcfromtimestamp(int(data["answered_at"]))
+        #     ended_at = datetime.utcfromtimestamp(int(data["ended_at"]))
+        #     duration = str(ended_at - answered_at)  # (h:m:s) format
+
+        duration = data["duration"]
 
         self.env["aircall.call"].sudo().create(
             {
@@ -71,7 +73,7 @@ class AircallService(models.TransientModel):
                 "started_at": started_at,
                 "duration": duration,
                 "direction": direction,
-                "recording_attachment_id": self._create_audio_attachment(data["recording"], "recording_" + str(started_at.date())) if data["recording"] != "None" else False
+                "recording_attachment_id": self._create_audio_attachment(data["recording"], "recording_" + str(started_at.date())) if data["recording"] != None else False
             }
         )
 
