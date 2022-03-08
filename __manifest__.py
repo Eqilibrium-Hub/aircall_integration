@@ -27,6 +27,7 @@
         'views/aircall_menus.xml',
         'views/res_config_settings_views.xml',
         'views/aircall_call_view.xml',
+        'views/res_users_views.xml',
         'data/call_expiry_cron.xml'
 
     ],
