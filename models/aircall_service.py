@@ -20,7 +20,7 @@ class AircallService(models.TransientModel):
 
         if true_token is False:
             _logger.warning(
-                "Aircall integration token has not been set. Webhooks cannot function without it.")
+                "Aircall integration token has not been set. Webhooks cannot work without it.")
 
         return true_token == token
 
@@ -90,10 +90,9 @@ class AircallService(models.TransientModel):
 
     @staticmethod
     def _dl_audio(url):
-        url = "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3"
         re = requests.get(url)
         if re.status_code != requests.codes.ok:
             _logger.warning(
-                "Could not reach URL to download audio [{}]".format(url))
+                "Could not reach URL [{}] to download audio".format(url))
             return False
         return re.content

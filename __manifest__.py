@@ -26,7 +26,8 @@
         'security/ir.model.access.csv',
         'views/aircall_menus.xml',
         'views/res_config_settings_views.xml',
-        'views/aircall_call_view.xml'
+        'views/aircall_call_view.xml',
+        'data/call_expiry_cron.xml'
 
     ],
     'application': True,

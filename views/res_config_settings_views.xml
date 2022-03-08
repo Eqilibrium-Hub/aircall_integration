@@ -23,6 +23,16 @@
                             <field name="integration_token" password="True"/>
                         </div>
                     </div>
+                    <h2> Call Logging </h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="o_setting_left_pane">
+                            <label for="cron_delete" string="Enable call logging auto-delete"/>
+                            <field name="cron_delete" modifiers="{}"/>
+                            <br/>
+                            <label for="delete_after" string="Delete call logs after x hours"/>
+                            <field name="delete_after"/>
+                        </div>
+                    </div>
                 </div>
             </xpath>
         </field>

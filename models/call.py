@@ -1,6 +1,8 @@
-from asyncore import read
-from email.policy import default
 from odoo import api, fields, models
+from datetime import datetime, timedelta
+
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class aircall_call(models.Model):
@@ -17,13 +19,13 @@ class aircall_call(models.Model):
 
     started_at = fields.Datetime("Start", readonly=True)
     duration = fields.Char("Duration", readonly=True,
-                           default='0', help="Duration of the call in seconds.")
+                           help="Duration of the call in seconds.")
     external_number = fields.Char("Outbound number", readonly=True)
     direction = fields.Selection(
         [("inbound", "Inbound"), ("outbound", "Outbound")], string="Type", readonly=True)
     # we have to create an attachment since you can't set a mime type on a raw binary field
     recording_attachment_id = fields.Many2one('ir.attachment',
-                                              string="Audio Recording", ondelete='set null', readonly=True)
+                                              string="Audio Recording", ondelete='restrict', readonly=True)
     recording = fields.Binary(
         related="recording_attachment_id.datas", attachment=False, readonly=True)
     missed_call_reason = fields.Selection(
@@ -37,3 +39,16 @@ class aircall_call(models.Model):
         for call in self:
             call.name = "{} on {}".format(call.aircall_user_id.name,
                                           call.started_at.date())
+
+    @api.model
+    def _cron_destroy_expired_calls(self):
+        destroy_flag = self.env['ir.config_parameter'].sudo(
+        ).get_param('aircall.cron_delete')
+        if destroy_flag == False:
+            return
+        delete_after = self.env['ir.config_parameter'].sudo().get_param(
+            'aircall.delete_after')
+        expiry_date = (datetime.utcnow(
+        ) - timedelta(hours=int(delete_after))).strftime("%Y/%m/%d, %H:%M:%S")
+        self.env['aircall.call'].sudo().search(
+            [('started_at', '<', expiry_date)]).unlink()
