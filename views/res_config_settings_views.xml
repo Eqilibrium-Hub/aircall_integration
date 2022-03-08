@@ -7,30 +7,35 @@
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('settings')]" position="inside">
                 <div class="app_settings_block" data-string="Aircall" string="Aircall" data-key="aircall_integration">
-                    <h2>Basic Authentification</h2>
+                    <h2>Aircall API</h2>
                     <div class="row mt16 o_settings_container">
                         <div class="o_setting_left_pane">
                             <label for="api_id" string="API id"/>
                             <field name="api_id"/>
                             <label for="api_token" string="API token"/>
                             <field name="api_token" password="True"/>
-                        </div>
-                    </div>
-                    <h2>Integration</h2>
-                    <div class="row mt16 o_settings_container">
-                        <div class="o_setting_left_pane">
                             <label for="integration_token" string="Integration Token"/>
                             <field name="integration_token" password="True"/>
                         </div>
                     </div>
                     <h2> Call Logging </h2>
                     <div class="row mt16 o_settings_container">
-                        <div class="o_setting_left_pane">
-                            <label for="cron_delete" string="Enable call logging auto-delete"/>
-                            <field name="cron_delete" modifiers="{}"/>
-                            <br/>
-                            <label for="delete_after" string="Delete call logs after x hours"/>
-                            <field name="delete_after"/>
+                        <div class="col-12 col-lg-6 o_setting_box" id="aircall_cron_settings">
+                            <div class="o_setting_left_pane">
+                                <field name="cron_delete"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="cron_delete"/>
+                                <div class="text-muted">
+                                    Enable call log auto-deleting with a scheduled task. 
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('cron_delete', '=', False)]}">
+                                    <div class="row mt16">
+                                        <label for="delete_after" string="Delete after x hours" class="col-lg-3 o_form_label"/>
+                                        <field name="delete_after"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

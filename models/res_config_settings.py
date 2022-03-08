@@ -12,8 +12,8 @@ class ResConfigSettings(models.TransientModel):
     # Integration token used to validate incoming webhook calls
     integration_token = fields.Char("integration token")
 
-    delete_after = fields.Integer("delete call logs after x days")
-    cron_delete = fields.Boolean("periodically delete call logs")
+    delete_after = fields.Integer("Delete call logs after x days")
+    cron_delete = fields.Boolean("Enable cron")
 
     @api.model
     def get_values(self):
@@ -24,7 +24,7 @@ class ResConfigSettings(models.TransientModel):
         res["integration_token"] = env.get_param(
             'aircall.integration_token', default="")
         res["delete_after"] = env.get_param(
-            'aircall.delete_after')
+            'aircall.delete_after', default=72)
         res["cron_delete"] = env.get_param(
             'aircall.cron_delete')
         return res
