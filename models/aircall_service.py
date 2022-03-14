@@ -79,10 +79,10 @@ class AircallService(models.TransientModel):
 
     @api.model
     def _register_tags(self, payload):
-        '''Register tags for an already created 'aircall.call' object.'''
+        '''Register and overrides tags for an already created 'aircall.call' object.'''
         data = payload["data"]
-        tags = data["tags"]
-        if tags == None:
+        tags = [tag["name"] for tag in data["tags"]]
+        if tags == []:
             return
         id_aircall = data['id']
         sudo_env = self.env['aircall.tag'].sudo()
@@ -93,7 +93,6 @@ class AircallService(models.TransientModel):
                 "Could not tag call n°[{}], it was not found in the database.", id_aircall)
             return
         tag_ids = [sudo_env.get_or_create_tag(tag) for tag in tags]
-        _logger.warning(tag_ids)
         call_record.tag_ids = [(6, 0, tag_ids)]  # override existing tags
 
     @api.model

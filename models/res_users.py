@@ -9,15 +9,12 @@ class Partners(models.Model):
     _name = "res.partner"
     _description = 'E.164 validation of phone field.'
 
-    # Validate user input on phone field with two strategies:
-    # - check if it is strict E.164
-    # - if not, interpret it as a local number, local being the country id of the user company,
-    #   or France if it is not set.
+    # Simple check of a phone number. If it is not ambiguous and valid,
+    # the phone number is accepted and formatted using the International format.
 
     def write(self, values):
         phone = values.get('phone')
         if phone:
-            print(phone)
             try:
                 parsed_phone = phonenumbers.parse(phone, None)
             except:
