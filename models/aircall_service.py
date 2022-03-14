@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, models
 import logging
 import requests
 from datetime import datetime
@@ -29,7 +29,9 @@ class AircallService(models.TransientModel):
     @api.model
     def register(self, payload):
         register_map = {
-            'call.ended': self._register_call
+            'call.ended': self._register_call,
+            'call.tagged': self._register_tags,
+            'call.untagged': self._register_tags
         }
         try:
             method = register_map[payload["event"]]
@@ -58,16 +60,12 @@ class AircallService(models.TransientModel):
         external_entity = self.env["res.partner"].sudo().search(
             [('phone', 'ilike', external_number)], limit=1).id
 
-        # if data["answered_at"] != None and data["answered_at"] != None:
-        #     answered_at = datetime.utcfromtimestamp(int(data["answered_at"]))
-        #     ended_at = datetime.utcfromtimestamp(int(data["ended_at"]))
-        #     duration = str(ended_at - answered_at)  # (h:m:s) format
-
         duration = data["duration"]
 
         self.env["aircall.call"].sudo().create(
             {
                 "aircall_user_id": aircall_user_id,
+                "id_aircall": data['id'],
                 "external_entity": external_entity,
                 "external_number": external_number,
                 "started_at": started_at,
@@ -76,6 +74,27 @@ class AircallService(models.TransientModel):
                 "recording_attachment_id": self._create_audio_attachment(data["recording"], "recording_" + str(started_at.date())) if data["recording"] != None else False
             }
         )
+
+        self._register_tags(payload)
+
+    @api.model
+    def _register_tags(self, payload):
+        '''Register tags for an already created 'aircall.call' object.'''
+        data = payload["data"]
+        tags = data["tags"]
+        if tags == None:
+            return
+        id_aircall = data['id']
+        sudo_env = self.env['aircall.tag'].sudo()
+        call_record = self.env['aircall.call'].sudo().search(
+            [('id_aircall', '=', id_aircall)], limit=1)
+        if call_record == False:
+            _logger.warning(
+                "Could not tag call n°[{}], it was not found in the database.", id_aircall)
+            return
+        tag_ids = [sudo_env.get_or_create_tag(tag) for tag in tags]
+        _logger.warning(tag_ids)
+        call_record.tag_ids = [(6, 0, tag_ids)]  # override existing tags
 
     @api.model
     def _create_audio_attachment(self, url, filename):

@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-from asyncio.log import logger
-from urllib import request
 from odoo import http
-import json
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -33,7 +30,7 @@ class AircallIntegration(http.Controller):
                 http.request.httprequest.environ['REMOTE_ADDR']))
             return
 
-        logger.warning(json_payload)
+        _logger.warning(json_payload)
 
         http.request.env["aircall.service"].register(json_payload)
 

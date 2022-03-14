@@ -13,6 +13,9 @@ class aircall_call(models.Model):
     # https://developer.aircall.io/api-references/#call-overview
 
     name = fields.Char(compute="_compute_name", store=True)
+    id_aircall = fields.Char(invisible=1)
+    tag_ids = fields.Many2many(
+        "aircall.tag", "tag", string="Tags which the agent assigned to the call")
     aircall_user_id = fields.Many2one(
         "res.users", "Aircall User", readonly=True)
     external_entity = fields.Many2one("res.partner", readonly=True)
@@ -54,6 +57,7 @@ class aircall_call(models.Model):
             [('started_at', '<', expiry_date)]).unlink()
 
     def unlink(self):
+        '''Since recording attachment is not a field, we need to delete it as well.'''
         for call in self:
             call.recording_attachment_id.unlink()
         return super(aircall_call, self).unlink()

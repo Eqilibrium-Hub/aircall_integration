@@ -18,6 +18,7 @@
                 <field name="external_entity" string="Client"/>
                 <field name="started_at" string="Date"/>
                 <field name="duration" string="Duration"/>
+                <field name="tag_ids" string="Tags" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
@@ -28,6 +29,7 @@
             <form string="Call log" create="false" edit="false">
                 <sheet>
                     <group>
+                        <field name="tag_ids" string="Tags" widget="many2many_tags"/>
                         <field name="aircall_user_id" string="Agent"/>
                         <field name="started_at" string="Date"/>
                         <field name="duration" string="Duration"/>
