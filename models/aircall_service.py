@@ -1,12 +1,18 @@
+import json
 from odoo import api, models
 import logging
 import requests
 from datetime import datetime
 import base64
-
-# Inspired by https://github.com/odoo/odoo/blob/15.0/addons/google_account/models/google_service.py
+import urllib3
 
 _logger = logging.getLogger(__name__)
+
+# http://192.168.1.129:8069/web#id=40&cids=1&menu_id=121&action=146&model=aircall.call&view_type=form
+# TODO ? set this as a config parameter
+ODOO_INSTANCE_LOCATION = "192.168.1.129:8069"
+
+AIRCALL_API_URL = "https://api.aircall.io/v1"
 
 
 class AircallService(models.TransientModel):
@@ -24,11 +30,19 @@ class AircallService(models.TransientModel):
 
         return true_token == token
 
+    @api.model
+    def get_aircall_api_config(self):
+        '''Will throw an error if the config is not set'''
+        sudo_param = self.sudo().env['ir.config_parameter']
+        return sudo_param.get_param(
+            'aircall.api_id'), sudo_param.get_param('aircall.api_token')
+
     # *********** Parsing methods
 
     @api.model
     def register(self, payload):
         register_map = {
+            'call.created': self._send_insight_card,
             'call.ended': self._register_call,
             'call.tagged': self._register_tags,
             'call.untagged': self._register_tags
@@ -96,6 +110,71 @@ class AircallService(models.TransientModel):
         call_record.tag_ids = [(6, 0, tag_ids)]  # override existing tags
 
     @api.model
+    def _send_insight_card(self, payload):
+        api_id, api_token = self.get_aircall_api_config()
+        if False in [api_id, api_token]:
+            _logger.warning(
+                "Aircall api credentials are not set. Some features won't work")
+            return
+
+        data = payload['data']
+
+        json_field = self._populate_insight_card(data)
+        if json_field is False:
+            # Callee was not found on the system on the system
+            return
+
+        aircall_url = AIRCALL_API_URL + "/calls/" + \
+            str(data['id']) + "/insight_cards"
+        req = requests.post(aircall_url, auth=(
+            api_id, api_token), json=json_field)
+
+    @api.model
+    def _populate_insight_card(self, data):
+        sudo = self.sudo()
+        callee_entity = sudo.env["res.partner"].search(
+            [('phone', 'ilike', data['raw_digits'])], limit=1)
+        if data is False:
+            return False
+
+        odoo_base_url = "http://" + ODOO_INSTANCE_LOCATION + "/web"
+        params = {
+            'id': callee_entity.id,
+            'model': 'res.partner',
+            'view_type': 'form',
+            # We use this trick to get the appropriate menu_id
+            'menu_id': sudo.env["ir.ui.menu"].search([('name', '=', "Contacts")], limit=1).id
+        }
+        odoo_contact_url = odoo_base_url + "#" + \
+            urllib3.request.urlencode(params)
+        _logger.warning(odoo_contact_url)
+        json_field = {
+            "contents": [
+                {
+                    "type": "title",
+                    "text": "Odoo",
+                    "link": "http://" + ODOO_INSTANCE_LOCATION
+                },
+                {
+                    "type": "shortText",
+                    "label": "Odoo Contact",
+                    "text": callee_entity.name,
+                    "link": odoo_contact_url
+                }
+            ]
+        }
+        # Add company line if it is set on the callee
+        if callee_entity.company_type == "person" and callee_entity.parent_id != False:
+            json_field["contents"].append(
+                {
+                    "type": "shortText",
+                    "label": "Company name",
+                    "text": callee_entity.parent_id.name
+                }
+            )
+        return json_field
+
+    @api.model
     def _create_audio_attachment(self, url, filename):
         binary_audio = self._dl_audio(url)
         if binary_audio is False:
@@ -109,7 +188,7 @@ class AircallService(models.TransientModel):
         }).id
 
     @staticmethod
-    def _dl_audio(url):
+    def _dl_audio(url):  # utils method
         re = requests.get(url)
         if re.status_code != requests.codes.ok:
             _logger.warning(
