@@ -5,7 +5,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class aircall_call(models.Model):
+class AircallCall(models.Model):
     _name = 'aircall.call'
     _description = "aircall call log"
 
@@ -18,7 +18,7 @@ class aircall_call(models.Model):
         "aircall.tag", "tag", string="Tags which the agent assigned to the call")
     aircall_user_id = fields.Many2one(
         "res.users", "Aircall User", readonly=True)
-    external_entity = fields.Many2one("res.partner", readonly=True)
+    external_entity_id = fields.Many2one("res.partner", readonly=True)
 
     started_at = fields.Datetime("Start", readonly=True)
     duration = fields.Char("Duration", readonly=True,
@@ -60,4 +60,4 @@ class aircall_call(models.Model):
         '''Since recording attachment is not a field, we need to delete it as well.'''
         for call in self:
             call.recording_attachment_id.unlink()
-        return super(aircall_call, self).unlink()
+        return super(AircallCall, self).unlink()

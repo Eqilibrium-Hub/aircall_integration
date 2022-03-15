@@ -15,7 +15,7 @@
                 <field name="aircall_user_id" string="Agent" widget="many2one_avatar_user"/>
                 <field name="direction" string="Type" decoration-danger="direction == 'inbound'" decoration-success="direction == 'outbound'"/>
                 <field name="external_number" string="Client Number"/>
-                <field name="external_entity" string="Client"/>
+                <field name="external_entity_id" string="Client" widget="many2one_avatar"/>
                 <field name="started_at" string="Date"/>
                 <field name="duration" string="Duration"/>
                 <field name="tag_ids" string="Tags" widget="many2many_tags"/>
@@ -34,7 +34,7 @@
                         <field name="started_at" string="Date"/>
                         <field name="duration" string="Duration"/>
                         <field name="external_number" string="Client Number"/>
-                        <field name="external_entity" string="Client"/>
+                        <field name="external_entity_id" string="Client"/>
                         <field name="recording" string="Call recording" widget="audio_omar_widget"/>
                     </group>
                 </sheet>

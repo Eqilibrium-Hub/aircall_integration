@@ -10,7 +10,6 @@ _logger = logging.getLogger(__name__)
 
 # http://192.168.1.129:8069/web#id=40&cids=1&menu_id=121&action=146&model=aircall.call&view_type=form
 # TODO ? set this as a config parameter
-ODOO_INSTANCE_LOCATION = "192.168.1.129:8069"
 
 AIRCALL_API_URL = "https://api.aircall.io/v1"
 
@@ -71,7 +70,7 @@ class AircallService(models.TransientModel):
                 data["user"]["name"], data["user"]["email"], data["raw_digits"]))
             return
 
-        external_entity = self.env["res.partner"].sudo().search(
+        external_entity_id = self.env["res.partner"].sudo().search(
             [('phone', 'ilike', external_number)], limit=1).id
 
         duration = data["duration"]
@@ -80,7 +79,7 @@ class AircallService(models.TransientModel):
             {
                 "aircall_user_id": aircall_user_id,
                 "id_aircall": data['id'],
-                "external_entity": external_entity,
+                "external_entity_id": external_entity_id,
                 "external_number": external_number,
                 "started_at": started_at,
                 "duration": duration,
@@ -137,7 +136,7 @@ class AircallService(models.TransientModel):
         if data is False:
             return False
 
-        odoo_base_url = "http://" + ODOO_INSTANCE_LOCATION + "/web"
+        base_url = self.get_base_url()
         params = {
             'id': callee_entity.id,
             'model': 'res.partner',
@@ -145,21 +144,18 @@ class AircallService(models.TransientModel):
             # We use this trick to get the appropriate menu_id
             'menu_id': sudo.env["ir.ui.menu"].search([('name', '=', "Contacts")], limit=1).id
         }
-        odoo_contact_url = odoo_base_url + "#" + \
-            urllib3.request.urlencode(params)
-        _logger.warning(odoo_contact_url)
         json_field = {
             "contents": [
                 {
                     "type": "title",
                     "text": "Odoo",
-                    "link": "http://" + ODOO_INSTANCE_LOCATION
+                    "link": base_url
                 },
                 {
                     "type": "shortText",
                     "label": "Odoo Contact",
                     "text": callee_entity.name,
-                    "link": odoo_contact_url
+                    "link": base_url + "#" + urllib3.request.urlencode(params)
                 }
             ]
         }

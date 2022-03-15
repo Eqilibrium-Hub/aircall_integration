@@ -12,6 +12,7 @@ class ResConfigSettings(models.TransientModel):
     # Integration token used to validate incoming webhook calls
     integration_token = fields.Char("integration token")
 
+    # Cron
     delete_after = fields.Integer("Delete call logs after x days")
     cron_delete = fields.Boolean("Enable cron")
 
