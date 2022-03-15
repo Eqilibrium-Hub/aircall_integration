@@ -33,6 +33,7 @@
     'depends': [
         'base',
         'web',
+        'contacts',
         'omar_audio'  # audio widget
     ],
 
