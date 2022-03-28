@@ -134,7 +134,7 @@ class AircallService(models.TransientModel):
         sudo = self.sudo()
         callee_entity = sudo.env["res.partner"].search(
             [('phone', 'ilike', data['raw_digits'])], limit=1)
-        if data is False:
+        if callee_entity.id is False:
             return False
 
         base_url = self.get_base_url()
@@ -169,6 +169,7 @@ class AircallService(models.TransientModel):
                     "text": callee_entity.parent_id.name
                 }
             )
+        _logger.warning(json_field)
         return json_field
 
     @api.model

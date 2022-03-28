@@ -44,6 +44,7 @@
     },
 
     'data': [
+        'security/aircall_security.xml',
         'security/ir.model.access.csv',
         'views/aircall_menus.xml',
         'views/res_config_settings_views.xml',

@@ -1,3 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-aircall_call_all_access,aircall_call_all_access,model_aircall_call,base.group_user,1,1,1,1
-aircall_integration.access_aircall_tag,access_aircall_tag,aircall_integration.model_aircall_tag,base.group_user,1,0,0,0
+aircall_call_all_access,aircall_call_all_access,model_aircall_call,group_aircall_admin,1,0,0,1
+aircall_integration.access_aircall_tag,access_aircall_tag,aircall_integration.model_aircall_tag,group_aircall_admin,1,0,0,0

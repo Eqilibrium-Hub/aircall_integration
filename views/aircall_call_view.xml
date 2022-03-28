@@ -31,11 +31,12 @@
                     <group>
                         <field name="tag_ids" string="Tags" widget="many2many_tags"/>
                         <field name="aircall_user_id" string="Agent"/>
+                        <field name="external_entity_id" string="Client"/>
+                        <field name="external_number" string="Client Number"/>
+                        <field name="missed_call_reason" attrs="{'invisible':[('missed_call_reason','=', False)]}"/>
                         <field name="started_at" string="Date"/>
                         <field name="duration" string="Duration"/>
-                        <field name="external_number" string="Client Number"/>
-                        <field name="external_entity_id" string="Client"/>
-                        <field name="recording" string="Call recording" widget="audio_omar_widget"/>
+                        <field name="recording" string="Call recording" widget="audio_omar_widget" attrs="{'invisible':[('recording','=', False)]}"/>
                     </group>
                 </sheet>
             </form>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="aircall_menu_root" name="Aircall"/>
-    <menuitem id="aircall_menu" name="Users" parent="aircall_menu_root"/>
+    <menuitem id="aircall_menu_root" name="Aircall" groups="group_aircall_admin"/>
+    <menuitem id="aircall_menu" name="Users" parent="aircall_menu_root" groups="group_aircall_admin"/>
 </odoo>
