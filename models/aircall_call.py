@@ -8,6 +8,7 @@ _logger = logging.getLogger(__name__)
 class AircallCall(models.Model):
     _name = 'aircall.call'
     _description = "aircall call log"
+    _order = "started_at desc"
 
     # replicates some of the fields available through Aircall API
     # https://developer.aircall.io/api-references/#call-overview

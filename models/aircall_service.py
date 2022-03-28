@@ -84,7 +84,8 @@ class AircallService(models.TransientModel):
                 "started_at": started_at,
                 "duration": duration,
                 "direction": direction,
-                "recording_attachment_id": self._create_audio_attachment(data["recording"], "recording_" + str(started_at.date())) if data["recording"] != None else False
+                "recording_attachment_id": self._create_audio_attachment(data["recording"], "recording_" + str(started_at.date())) if data["recording"] != None else False,
+                "missed_call_reason": data["missed_call_reason"] if data["missed_call_reason"] != None else False
             }
         )
 

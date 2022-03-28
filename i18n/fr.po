@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 16:51+0000\n"
-"PO-Revision-Date: 2022-03-15 16:51+0000\n"
+"POT-Creation-Date: 2022-03-28 10:48+0000\n"
+"PO-Revision-Date: 2022-03-28 10:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,23 +33,29 @@ msgstr ""
 #. module: aircall_integration
 #: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__abandoned_in_classic
 msgid "Abandoned in classic"
-msgstr ""
+msgstr "Abandonné en classique"
 
 #. module: aircall_integration
 #: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__abandonned_in_ivr
 msgid "Abandonned in ivr"
-msgstr ""
+msgstr "Abandonné en svi"
 
 #. module: aircall_integration
 #: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_search
 #: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
 msgid "Agent"
 msgstr ""
 
 #. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_search
+msgid "Agent didn't answer"
+msgstr "L'agent n'a pas décroché"
+
+#. module: aircall_integration
 #: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__agents_did_not_answer
 msgid "Agents did not answer"
-msgstr ""
+msgstr "L'agent n'a pas répondu"
 
 #. module: aircall_integration
 #: model:ir.ui.menu,name:aircall_integration.aircall_menu_root
@@ -96,6 +102,11 @@ msgid "Call"
 msgstr "Appel"
 
 #. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_search
+msgid "Call Analysis"
+msgstr "Analyse des appels"
+
+#. module: aircall_integration
 #: model_terms:ir.ui.view,arch_db:aircall_integration.res_config_settings_view_form
 msgid "Call Logging"
 msgstr "Archivage des appels"
@@ -130,7 +141,7 @@ msgstr "Numéro Client"
 #. module: aircall_integration
 #: model:ir.model,name:aircall_integration.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Paramètres de config"
 
 #. module: aircall_integration
 #: model:ir.ui.menu,name:aircall_integration.aircall_configuration_menu
@@ -255,6 +266,11 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_search
+msgid "Last Week"
+msgstr "Cette semaine"
+
+#. module: aircall_integration
 #: model:ir.ui.menu,name:aircall_integration.model_name_menu
 msgid "Logs"
 msgstr "Historique"
@@ -263,6 +279,11 @@ msgstr "Historique"
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__missed_call_reason
 msgid "Missed call reason"
 msgstr "Raison d'appel manqué"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_search
+msgid "My calls"
+msgstr "Mes appels"
 
 #. module: aircall_integration
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__name
@@ -288,6 +309,11 @@ msgstr "Sortant"
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__external_number
 msgid "Outbound number"
 msgstr "numéro externe"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_search
+msgid "Recording available"
+msgstr ""
 
 #. module: aircall_integration
 #: model:ir.ui.menu,name:aircall_integration.aircall_settings_menu

@@ -3,7 +3,7 @@
     <record id="aircall_call_action" model="ir.actions.act_window">
         <field name="name">Call logs</field>
         <field name="res_model">aircall.call</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,search</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
@@ -39,6 +39,21 @@
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+    <record id="aircall_call_view_search" model="ir.ui.view">
+        <field name="name">aircall.call.view.search</field>
+        <field name="model">aircall.call</field>
+        <field name="arch" type="xml">
+            <search string="Call Analysis">
+                <filter string="My calls" name="my_call" domain="['|', ('aircall_user_id', '=', uid), ('external_entity_id', '=', uid)]"/>
+                <!-- <filter string="Today" name="today" domain="[('started_at','=', context_today().strftime('%%Y-%%m-%%d'))]"/> -->
+                <filter string="Last Week" name="last_week" domain="[('started_at','>', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Agent didn't answer" name="agent_no_answer" domain="[('missed_call_reason','!=', False)]"/>
+                <filter string="Recording available" name="recording_available" domain="[('recording_attachment_id','!=', False)]"/>
+                <field name="aircall_user_id" string="Agent"/>
+                <field name="external_entity_id" string="Client"/>
+            </search>
         </field>
     </record>
     <menuitem
