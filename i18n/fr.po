@@ -1,0 +1,357 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* aircall_integration
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-15 16:51+0000\n"
+"PO-Revision-Date: 2022-03-15 16:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.view_res_partner_form_inherit_aircall
+msgid "+33 7 82 85 72 27"
+msgstr ""
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.res_config_settings_view_form
+msgid "API id"
+msgstr ""
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.res_config_settings_view_form
+msgid "API token"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__abandoned_in_classic
+msgid "Abandoned in classic"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__abandonned_in_ivr
+msgid "Abandonned in ivr"
+msgstr ""
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
+msgid "Agent"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__agents_did_not_answer
+msgid "Agents did not answer"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.ui.menu,name:aircall_integration.aircall_menu_root
+#: model_terms:ir.ui.view,arch_db:aircall_integration.res_config_settings_view_form
+msgid "Aircall"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.actions.server,name:aircall_integration.aircall_call_expiry_cron_ir_actions_server
+#: model:ir.cron,cron_name:aircall_integration.aircall_call_expiry_cron
+#: model:ir.cron,name:aircall_integration.aircall_call_expiry_cron
+msgid "Aircall : Delete call logs periodically"
+msgstr "Aircall : Supprimer les logs périodiquement"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.res_config_settings_view_form
+msgid "Aircall API"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.actions.act_window,name:aircall_integration.res_config_settings_action
+msgid "Aircall Settings"
+msgstr "Paramètres Aircall"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__aircall_user_id
+msgid "Aircall User"
+msgstr "Utilisateur Aircall"
+
+#. module: aircall_integration
+#: model:ir.model,name:aircall_integration.model_aircall_service
+msgid "Aircall service"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__recording_attachment_id
+msgid "Audio Recording"
+msgstr "Enregistrement audio"
+
+#. module: aircall_integration
+#: model:ir.ui.menu,name:aircall_integration.aircall_call_menu
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
+msgid "Call"
+msgstr "Appel"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.res_config_settings_view_form
+msgid "Call Logging"
+msgstr "Archivage des appels"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+msgid "Call log"
+msgstr "Historique"
+
+#. module: aircall_integration
+#: model:ir.actions.act_window,name:aircall_integration.aircall_call_action
+msgid "Call logs"
+msgstr "Historique"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+msgid "Call recording"
+msgstr "Enregistrement de l'appel"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
+msgid "Client"
+msgstr ""
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
+msgid "Client Number"
+msgstr "Numéro Client"
+
+#. module: aircall_integration
+#: model:ir.model,name:aircall_integration.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.ui.menu,name:aircall_integration.aircall_configuration_menu
+msgid "Configuration"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__create_uid
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_service__create_uid
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__create_date
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_service__create_date
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
+msgid "Date"
+msgstr ""
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.res_config_settings_view_form
+msgid "Delete after x hours"
+msgstr "Supprimer après x heures"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_res_config_settings__delete_after
+msgid "Delete call logs after x days"
+msgstr "Supprimer un historique d'appel après x jours"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__display_name
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_service__display_name
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag__display_name
+msgid "Display Name"
+msgstr "Afficher le nom"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__duration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
+msgid "Duration"
+msgstr "Durée (secondes)"
+
+#. module: aircall_integration
+#: model:ir.model.fields,help:aircall_integration.field_aircall_call__duration
+msgid "Duration of the call in seconds."
+msgstr "Durée de l'appel en secondes"
+
+#. module: aircall_integration
+#: model:ir.model,name:aircall_integration.model_res_partner
+msgid "E.164 validation of phone field."
+msgstr ""
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.res_config_settings_view_form
+msgid "Enable call log auto-deleting with a scheduled task."
+msgstr "Activer l'auto délétion des logs avec un cron."
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_res_config_settings__cron_delete
+msgid "Enable cron"
+msgstr "Activer le cron"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__external_entity_id
+msgid "External Entity"
+msgstr "Entité externe"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__recording
+msgid "File Content (base64)"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__id
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_service__id
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag__id
+msgid "ID"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__id_aircall
+msgid "Id Aircall"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__direction__inbound
+msgid "Inbound"
+msgstr "Entrant"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.res_config_settings_view_form
+msgid "Integration Token"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call____last_update
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_service____last_update
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__write_uid
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_service__write_uid
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__write_date
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_service__write_date
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.ui.menu,name:aircall_integration.model_name_menu
+msgid "Logs"
+msgstr "Historique"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__missed_call_reason
+msgid "Missed call reason"
+msgstr "Raison d'appel manqué"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: aircall_integration
+#: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__no_available_agent
+msgid "No available agent"
+msgstr "Pas d'agent disponible"
+
+#. module: aircall_integration
+#: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__out_of_opening_hours
+msgid "Out of opening hours"
+msgstr "En dehors des heures d'ouverture"
+
+#. module: aircall_integration
+#: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__direction__outbound
+msgid "Outbound"
+msgstr "Sortant"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__external_number
+msgid "Outbound number"
+msgstr "numéro externe"
+
+#. module: aircall_integration
+#: model:ir.ui.menu,name:aircall_integration.aircall_settings_menu
+msgid "Settings"
+msgstr "Paramètres"
+
+#. module: aircall_integration
+#: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__short_abandoned
+msgid "Short abandoned"
+msgstr "Abandonné rapidement"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__started_at
+msgid "Start"
+msgstr "Date de début"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag__name
+msgid "Tag name"
+msgstr "Nom du tag"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
+msgid "Tags"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__tag_ids
+msgid "Tags which the agent assigned to the call"
+msgstr "Tags que l'agent a assigné à l'appel"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__direction
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
+msgid "Type"
+msgstr "Direction"
+
+#. module: aircall_integration
+#: model:ir.ui.menu,name:aircall_integration.aircall_menu
+msgid "Users"
+msgstr "Utilisateurs"
+
+#. module: aircall_integration
+#: model:ir.model,name:aircall_integration.model_aircall_call
+msgid "aircall call log"
+msgstr "historique des appels aircall"
+
+#. module: aircall_integration
+#: model:ir.model,name:aircall_integration.model_aircall_tag
+msgid "aircall tag on calls"
+msgstr "tags sur les appels"
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_res_config_settings__api_id
+msgid "api id"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_res_config_settings__api_token
+msgid "api token"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_res_config_settings__integration_token
+msgid "integration token"
+msgstr ""
