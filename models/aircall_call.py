@@ -63,3 +63,29 @@ class AircallCall(models.Model):
         for call in self:
             call.recording_attachment_id.unlink()
         return super(AircallCall, self).unlink()
+
+    def create_prospect(self):
+        # create the prospect
+        prospect_number = self.env.context.get('phone')
+        prospect_id = self.env['res.partner'].sudo().create({
+            'name': 'new prospect',
+            'company_type': 'person',
+            'phone': self.env.context.get('phone'),
+            'category_id': self.env['res.partner.category'].search([('name', 'ilike', 'prospects')], limit=1)
+        }).id
+
+        # link every call with this phone number to this prospect
+        self.env['aircall.call'].sudo().search(
+            [('external_number', 'ilike', prospect_number)]).write({'external_entity_id': prospect_id})
+
+        # then return a view on the prospect
+        return {
+            'name': 'New prospect',
+            'view_type': 'form',
+            'res_model': 'res.partner',
+            'res_id': prospect_id,
+            'view_id': False,
+            'view_mode': 'form',
+            'target': 'new',
+            'type': 'ir.actions.act_window'
+        }

@@ -27,6 +27,13 @@
         <field name="model">aircall.call</field>
         <field name="arch" type="xml">
             <form string="Call log" create="false">
+                <header>
+                    <button name="create_prospect" string="Create a prospect" class="oe_highlight"
+                                type="object"
+                                attrs="{'invisible': [('external_entity_id', '!=', False)]}"
+                                context="{'phone' : external_number}"
+                                />
+                </header>
                 <sheet>
                     <group>
                         <field name="tag_ids" string="Tags" widget="many2many_tags" readonly="1"/>
