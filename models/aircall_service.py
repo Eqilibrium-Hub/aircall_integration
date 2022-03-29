@@ -8,9 +8,6 @@ import urllib3
 
 _logger = logging.getLogger(__name__)
 
-# http://192.168.1.129:8069/web#id=40&cids=1&menu_id=121&action=146&model=aircall.call&view_type=form
-# TODO ? set this as a config parameter
-
 AIRCALL_API_URL = "https://api.aircall.io/v1"
 
 
@@ -44,7 +41,8 @@ class AircallService(models.TransientModel):
             'call.created': self._send_insight_card,
             'call.ended': self._register_call,
             'call.tagged': self._register_tags,
-            'call.untagged': self._register_tags
+            'call.untagged': self._register_tags,
+            'call.commented': self._register_comment
         }
         try:
             method = register_map[payload["event"]]
@@ -85,7 +83,8 @@ class AircallService(models.TransientModel):
                 "duration": duration,
                 "direction": direction,
                 "recording_attachment_id": self._create_audio_attachment(data["recording"], "recording_" + str(started_at.date())) if data["recording"] != None else False,
-                "missed_call_reason": data["missed_call_reason"] if data["missed_call_reason"] != None else False
+                "missed_call_reason": data["missed_call_reason"] if data["missed_call_reason"] != None else False,
+                "notes": "\n".join(data["comments"]) if data["comments"] != None else False
             }
         )
 
@@ -171,6 +170,23 @@ class AircallService(models.TransientModel):
             )
         _logger.warning(json_field)
         return json_field
+
+    @api.model
+    def _register_comment(self, payload):
+        data = payload["data"]
+        comments = []
+        for comment in data["comments"]:
+            comments.append("{} :\n{}".format(comment["posted_by"]
+                                              ["name"], comment["content"]))
+        id_aircall = data['id']
+        sudo_env = self.env['aircall.tag'].sudo()
+        call_record = self.env['aircall.call'].sudo().search(
+            [('id_aircall', '=', id_aircall)], limit=1)
+        if call_record == False:
+            _logger.warning(
+                "Could not comment call n°[{}], it was not found in the database.", id_aircall)
+            return
+        call_record.notes = "\n".join(comments)
 
     @api.model
     def _create_audio_attachment(self, url, filename):

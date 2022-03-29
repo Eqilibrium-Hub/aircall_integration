@@ -26,10 +26,10 @@
         <field name="name">aircall.call.view.form</field>
         <field name="model">aircall.call</field>
         <field name="arch" type="xml">
-            <form string="Call log" create="false" edit="false">
+            <form string="Call log" create="false">
                 <sheet>
                     <group>
-                        <field name="tag_ids" string="Tags" widget="many2many_tags"/>
+                        <field name="tag_ids" string="Tags" widget="many2many_tags" readonly="1"/>
                         <field name="aircall_user_id" string="Agent"/>
                         <field name="external_entity_id" string="Client"/>
                         <field name="external_number" string="Client Number"/>
@@ -38,6 +38,11 @@
                         <field name="duration" string="Duration"/>
                         <field name="recording" string="Call recording" widget="audio_omar_widget" attrs="{'invisible':[('recording','=', False)]}"/>
                     </group>
+                    <notebook>
+                        <page name="Notes" string="notes">
+                            <field name="notes" options="{'height': 70}" readonly="1"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

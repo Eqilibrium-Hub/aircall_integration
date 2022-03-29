@@ -37,6 +37,7 @@ class AircallCall(models.Model):
          ("abandonned_in_ivr", "Abandonned in ivr"), (
             "abandoned_in_classic", "Abandoned in classic"),
             ("no_available_agent", "No available agent"), ("agents_did_not_answer", "Agents did not answer")], string="Missed call reason", readonly=True)
+    notes = fields.Text("notes")
 
     @api.depends("aircall_user_id.name", "started_at")
     def _compute_name(self):
