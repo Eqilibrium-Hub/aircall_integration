@@ -52,6 +52,7 @@
         'views/res_users_views.xml',
         'data/call_expiry_cron.xml'
     ],
+    'icon': 'static/description/icon.png',
     'application': True,
     'license': 'LGPL-3'
 }
