@@ -32,9 +32,6 @@ class ResPartner(models.Model):
         entity = self.env['res.partner'].search(
             [('id', '=', self.env.context.get('partner_id'))], limit=1)
         is_user = len(entity.user_ids) != 0
-
-        print(entity.id)
-        print(is_user)
         return {
             'name': 'Related calls',
             'res_model': 'aircall.call',
