@@ -136,7 +136,8 @@ class AircallService(models.TransientModel):
         if callee_entity.id is False:
             return False
 
-        base_url = self.get_base_url()
+        base_url = self.env['ir.config_parameter'].sudo(
+        ).get_param('web.base.url')
         params = {
             'id': callee_entity.id,
             'model': 'res.partner',
