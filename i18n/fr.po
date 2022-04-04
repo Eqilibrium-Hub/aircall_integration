@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-28 10:48+0000\n"
-"PO-Revision-Date: 2022-03-29 14:42+0200\n"
+"POT-Creation-Date: 2022-04-04 08:32+0000\n"
+"PO-Revision-Date: 2022-04-04 10:34+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.0.1\n"
+
+#. module: aircall_integration
+#: model:ir.module.category,name:aircall_integration.module_category_aircall
+msgid " Aircall "
+msgstr ""
 
 #. module: aircall_integration
 #: model_terms:ir.ui.view,arch_db:aircall_integration.view_res_partner_form_inherit_aircall
@@ -88,6 +93,11 @@ msgid "Aircall User"
 msgstr "Utilisateur Aircall"
 
 #. module: aircall_integration
+#: model:res.groups,name:aircall_integration.group_aircall_admin
+msgid "Aircall admin"
+msgstr ""
+
+#. module: aircall_integration
 #: model:ir.model,name:aircall_integration.model_aircall_service
 msgid "Aircall service"
 msgstr ""
@@ -129,7 +139,13 @@ msgid "Call recording"
 msgstr "Enregistrement de l'appel"
 
 #. module: aircall_integration
+#: model:ir.module.category,description:aircall_integration.module_category_aircall
+msgid "Check aircall logs."
+msgstr ""
+
+#. module: aircall_integration
 #: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_search
 #: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_tree
 msgid "Client"
 msgstr ""
@@ -149,6 +165,11 @@ msgstr "Paramètres de config"
 #: model:ir.ui.menu,name:aircall_integration.aircall_configuration_menu
 msgid "Configuration"
 msgstr ""
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+msgid "Create a prospect"
+msgstr "Créer un prospect"
 
 #. module: aircall_integration
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__create_uid
@@ -184,6 +205,8 @@ msgstr "Supprimer un historique d'appel après x jours"
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__display_name
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_service__display_name
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag__display_name
+#: model:ir.model.fields,field_description:aircall_integration.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:aircall_integration.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Afficher le nom"
 
@@ -228,6 +251,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__id
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_service__id
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag__id
+#: model:ir.model.fields,field_description:aircall_integration.field_res_config_settings__id
+#: model:ir.model.fields,field_description:aircall_integration.field_res_partner__id
 msgid "ID"
 msgstr ""
 
@@ -250,8 +275,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_call____last_update
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_service____last_update
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_tag____last_update
+#: model:ir.model.fields,field_description:aircall_integration.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:aircall_integration.field_res_partner____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: aircall_integration
 #: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__write_uid
@@ -293,6 +320,12 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: aircall_integration
+#: code:addons/aircall_integration/models/aircall_call.py:0
+#, python-format
+msgid "New prospect"
+msgstr "Client potentiel"
+
+#. module: aircall_integration
 #: model:ir.model.fields.selection,name:aircall_integration.selection__aircall_call__missed_call_reason__no_available_agent
 msgid "No available agent"
 msgstr "Pas d'agent disponible"
@@ -316,6 +349,11 @@ msgstr "Numéro externe"
 #: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_search
 msgid "Recording available"
 msgstr "Enregistrement disponible"
+
+#. module: aircall_integration
+#: model_terms:ir.ui.view,arch_db:aircall_integration.view_res_partner_form_inherit_aircall
+msgid "Related calls"
+msgstr "Appels"
 
 #. module: aircall_integration
 #: model:ir.ui.menu,name:aircall_integration.aircall_settings_menu
@@ -382,4 +420,10 @@ msgstr ""
 #. module: aircall_integration
 #: model:ir.model.fields,field_description:aircall_integration.field_res_config_settings__integration_token
 msgid "integration token"
+msgstr ""
+
+#. module: aircall_integration
+#: model:ir.model.fields,field_description:aircall_integration.field_aircall_call__notes
+#: model_terms:ir.ui.view,arch_db:aircall_integration.aircall_call_view_form
+msgid "notes"
 msgstr ""

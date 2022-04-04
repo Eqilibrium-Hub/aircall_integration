@@ -1,4 +1,4 @@
-# Odoo 15 Aircall integration
+# Odoo 14 Aircall integration
 
 ⚠️ This is an unofficial aircall integration
 

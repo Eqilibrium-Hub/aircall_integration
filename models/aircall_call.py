@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from datetime import datetime, timedelta
 
 import logging
@@ -80,7 +80,7 @@ class AircallCall(models.Model):
 
         # then return a view on the prospect
         return {
-            'name': 'New prospect',
+            'name': _('New prospect'),
             'view_type': 'form',
             'res_model': 'res.partner',
             'res_id': prospect_id,
