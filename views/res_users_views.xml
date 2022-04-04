@@ -8,7 +8,7 @@
             <field name="phone" position="attributes">
                 <attribute name="placeholder">+33 7 82 85 72 27</attribute>
             </field>
-            <xpath expr="//button[@name='schedule_meeting']" position="before">
+            <xpath expr="//div[@name='button_box']" position="inside">
                 <button 
                     name="view_related_calls"
                     string="Related calls"
