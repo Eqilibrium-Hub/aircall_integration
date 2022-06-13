@@ -65,7 +65,7 @@ class AircallService(models.TransientModel):
 
         if aircall_user_id is False:
             _logger.warning("Call log matching no one in database. {}/{}/{}".format(
-                data["user"]["name"], data["user"]["email"], data["raw_digits"]))
+                data["number"]["name"], data["number"]["email"], data["raw_digits"]))
             return
 
         external_entity_id = self.env["res.partner"].sudo().search(
